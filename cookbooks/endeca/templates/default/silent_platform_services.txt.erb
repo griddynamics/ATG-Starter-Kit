@@ -1,0 +1,14 @@
+<%= node[:endeca][:platform_services][:ports][:http] %>
+<%= node[:endeca][:platform_services][:ports][:shutdown] %>
+<%= node[:endeca][:platform_services][:ports][:jcd] %>
+<% if node[:endeca][:platform_services][:include_eac] == true %>
+Y
+<% else %>
+N
+<% end %>
+<%= node[:endeca][:mdex][:installation_dir] %>/endeca/MDEX/<%= node[:endeca][:mdex][:version] %>
+<% if node[:endeca][:platform_services][:include_reference] == true %>
+Y
+<% else %>
+N
+<% end %>

@@ -1,0 +1,10 @@
+{
+  "sources": {
+    "swap": {
+      "path": "."
+    },
+    "fake": {
+      "path": "./spec/cookbooks/fake"
+    }
+  }
+}

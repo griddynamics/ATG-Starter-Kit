@@ -1,0 +1,13 @@
+kit:
+  name: "ATG Starter Kit"
+  link: http://griddynamics.com
+  applications: [{
+    name: "ATG Starter Kit",
+    manifest: "https://raw2.github.com/griddynamics/ATG-Starter-Kit/master/manifests/atg_starter_kit.yaml"
+  }]
+  provider:
+    name: "Grid Dynamics"
+    link: http://griddynamics.com
+  documentation:
+    overview: |
+         Welcome to ATG Starter Kit!
