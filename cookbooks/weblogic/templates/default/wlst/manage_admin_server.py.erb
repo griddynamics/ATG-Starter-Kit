@@ -1,0 +1,41 @@
+import time
+import socket
+
+adminusername = '<%= node[:weblogic][:user] %>';
+adminpassword = '<%= node[:weblogic][:password] %>';
+
+domainlocation = '<%= node[:weblogic][:domain_home] %>/<%= node[:weblogic][:domain_name] %>';
+nodemanagerhomelocation = '<%= node[:weblogic][:weblogic_home] %>/common/nodemanager';
+
+connection_timeout = 300
+connection_delay = 10
+
+
+def nmOpenConnection(retries=0):
+    if connection_timeout < connection_delay * retries:
+    	raise EnvironmentError("Cant't connect to NodeManager")
+    try:
+        nmConnect(adminusername, adminpassword, 'localhost', '5556', '<%= node[:weblogic][:domain_name] %>', domainlocation, 'ssl')
+    except:
+        retries+=1
+        print "Retrying..."
+        time.sleep(connection_delay)
+        nmOpenConnection(retries)
+
+
+nmEnroll(domainlocation,nodemanagerhomelocation)
+
+print 'CONNECTING TO NODE MANAGER'
+nmOpenConnection()
+
+<% if @action == :start %>
+print 'STARTING ADMIN SERVER';
+nmStart('AdminServer')
+<% elsif @action == :stop %>
+print 'STOPPING ADMIN SERVER';
+nmKill('AdminServer')
+<% else %>
+    raise ValueError("Unknown action parameter! (Supported :start / :stop only)")
+<% end %>
+
+exit()

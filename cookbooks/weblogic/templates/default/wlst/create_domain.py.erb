@@ -1,0 +1,4 @@
+print 'CREATING <%= node[:weblogic][:domain_name] %> DOMAIN';
+createDomain('<%= node[:weblogic][:weblogic_home] %>/common/templates/domains/wls.jar','<%= node[:weblogic][:domain_home] %>/<%= node[:weblogic][:domain_name] %>','<%= node[:weblogic][:user] %>','<%= node[:weblogic][:password] %>')
+print '<%= node[:weblogic][:domain_name] %> DOMAIN CREATED SUCCESSFULLY';
+exit()
