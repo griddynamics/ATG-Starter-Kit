@@ -1,4 +1,4 @@
-#### Previous Step: [Launch the Application](docs/step-4-launch-guide.md)
+#### Previous Step: [Launch the Application](step-4-launch-guide.md)
 
 #(Optional) Modify and Update Custom CRS with ATG Starter Kit
 
