@@ -70,7 +70,7 @@ In the pop-up window, you will need to add the *property name*, *property type* 
   + weblogic - Password for Weblogic domain
   + oracle_db - Password for Oracle DB 'system' user
 - URLs to binaries properties:
-**To obtain binaries, please refer to the [Getting Artifacts Guide](docs/get-artefacts.md).
+**To obtain binaries, please refer to the [Getting Artifacts Guide](docs/get-artefacts.md)**
   + atg_binary_url - ATG Platform (.bin)
   + atg_store_url - ATG Commerce Reference Store (.bin)
   + cas_url - Endeca Content Acquisition System Documentation (.sh)

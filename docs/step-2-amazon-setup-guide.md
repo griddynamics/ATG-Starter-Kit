@@ -39,4 +39,4 @@ Once you have added all rules, select the "**Apply Rule Changes**" button. The s
 If you need additional help, please refer to the [Amazon portal](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html#adding-security-group-rule). 
 
 
-#### Next step: [Setup Qubell Account](step-3-qubell-setup-guide.md)
+#### Next step: [Set up a Qubell Account](step-3-qubell-setup-guide.md)
