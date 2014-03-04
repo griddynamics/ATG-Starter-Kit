@@ -34,6 +34,6 @@ Your search results will appear shortly. For custom search results, use left sel
 
 ## Commerce Reference Store Redeployment
 
-**!!! Set git_repo env propetry before using**
+**IMPORTANT: Set the git_repo env property first**
 
 To redeploy CRS from customs sources, go to your Git repository, select the "**Update Reference Store**" triangle button and choose "Advanced". Use *master* as the default branch (or specify another branch or revision) and select "**Execute**." The redeployment process takes about 15 minutes.

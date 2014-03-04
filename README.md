@@ -93,7 +93,7 @@ Please refer to the steps below for getting set up.
 - **[Step 2. Set up and Configure an Amazon Web Services (AWS) Account](docs/step-2-amazon-setup-guide.md)**
 - **[Step 3. Set up a Qubell Account](docs/step-3-qubell-setup-guide.md)**
 - **[Step 4. Launch the Application](docs/step-4-launch-guide.md)**
-- **[Step 5. (Optional) Modify and Update a Custom CRS with ATG Starter Kit](docs/step-5-custom-crs.md)**
+- **[(Optional) Modify and Update a Custom CRS with ATG Starter Kit](docs/step-5-custom-crs.md)**
 
 <a name="issues"></a>
 ## Known Issues
