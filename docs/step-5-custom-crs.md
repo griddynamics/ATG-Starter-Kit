@@ -21,7 +21,9 @@
 	
 	G. Add your module to ATG-Required of Storefront/META-INF/MANIFEST.MF to include it in ear assembly (e.g., ATG-Required: ... Store.CUSTOM_MODULE_NAME).
 	
-	H. To generate JavaDoc for your module, add element <pathelement path="${basedir}/CUSTOM_MODULE_PATH/${relative.src.dir}"/> to <path id="javadoc.sourcepath"> of build.xml file (in root of git repo).
+	H. To generate JavaDoc for your module, add the following to the build.xml file (in root of git repo):
+	
+		<pathelement path="${basedir}/CUSTOM_MODULE_PATH/${relative.src.dir}"/> to <path id="javadoc.sourcepath">
 	
 3. Update the application instance.
 
@@ -29,11 +31,11 @@
 
 1. Why is the existence of ATG-Class-Path (with at least one jar) mandatory in the module's manifest? 
 
-When we tried to deploy an instance without an empty jar added to ATG-Class-Path (e.g. ATG-Class-Path: lib/classes.jar, where classes.jar is empty archive), Nucleus didn't create our components. The same problem occurs in the build.properties file of module with property classpath. If it isn't specified or doesn't point to at least an empty jar, then the components will not be created. All the instance's sources are compiled from src/Java, so ATG-Class-Path and own compiling/packaging of code are redundant.
+	When we tried to deploy an instance without an empty jar added to ATG-Class-Path (e.g. ATG-Class-Path: lib/classes.jar, where classes.jar is empty archive), Nucleus didn't create our components. The same problem occurs in the build.properties file of module with property classpath. If it isn't specified or doesn't point to at least an empty jar, then the components will not be created. All the instance's sources are compiled from src/Java, so ATG-Class-Path and own compiling/packaging of code are redundant.
 
 2. What is the purpose of folder src/config for configuration files? 
 
-The properties of components are loaded by Nucleus from ATG-Config-Path.
+	The properties of components are loaded by Nucleus from ATG-Config-Path.
 
 ##Appendix A. build.xml example
 
