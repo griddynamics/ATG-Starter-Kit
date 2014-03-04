@@ -1,22 +1,20 @@
-Step 2. Setup Amazon Account
-============================
-Since you’ll be deploying the analytics and sample web store on Amazon cloud, you need to have an Amazon account, configure its security group to allow traffic to your applications, and add that Amazon account to your Qubell portal. 
+#### Previous Step: [Obtain the ATG Starter Kit](step-1-get-starter-kit.md)
 
-- **Obtain Amazon EC2 account capable of creating EC2 nodes and using S3 service.** If you don’t yet have an account on Amazon, it can be done [here](http://aws.amazon.com/account/). 
-- **Set-up security group.** The EC2 security group “default” has to allow the following connections to the application you’ll be deploying using your account. 
+#Step 2. Setup your Amazon Web Services (AWS) Account
 
-To configure your security group:
+Since you will be deploying the sample web store and analytics on Amazon Cloud, you must have an AWS account. The instructions below will walk you through configuring your AWS account's security group to allow traffic to your applications, and adding the Amazon account to your Qubell portal. 
 
-1. Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/.
-2. In the navigation pane, click Security Groups.
-3. Select the security group named "default." 
-4. Click on the tab "Inbound" to add the following rules. There should already be three default rules set up. 
-    
+First, **sign up for an Amazon EC2 account (one that supports EC2 nodes and S3).** If you don't have an AWS account, you can create one by navigating [here](http://aws.amazon.com/account/).
+
+Once you've created your AWS account, you need to **configure your security group.** To configure your security group for ATG Starter Kit, follow the steps below.
+
+1. Open your Amazon EC2 console at [https://console.aws.amazon.com/ec2/](https://console.aws.amazon.com/ec2/).
+2. In the navigation pane, click **Security Groups**.
+3. Select the security group named "**default**." 
+4. Click on "**Inbound**" tab to add new rules (note that there should already be three existing/default rules). 
+
 ![default rules](images/amazon-default-aws-rules.png)
-
-To add new rule choose "Custom TCP Rule" from "Create a new rule", set "Port range" as port, that your want to opem, leave "Source" as default (0.0.0.0/0), and click "Add Rule." You should see a new rule added under your TCP Port.
-
-Ports you have to open:
+5. To add the new rules, select "**Custom TCP Rule**" from the "**Create a new rule**" drop-down list. In the "**Port Range**" field, enter the first port shown below (22) and click the "**+ Add Rule**" button. You will see that Port 22 now appears as open on the right side of your screen. Continue this process for each port shown below.
 
 - For Qubell
     + 22
@@ -34,15 +32,11 @@ Ports you have to open:
     + 8888
     + 8500
 
-To finish adding rule press "Apply Rule Changes".
+Once you have added all rules, select the "**Apply Rule Changes**" button. The security group should appear similar to the image below after you have completed this task.
 
-This is how the finished security group should look like.
 ![atg starter kit rules](images/amazon-atg-sk-aws-rules.png)
-============
 
-5.Press "Apply Rule Change" to save changes. 
-
-For more information, you can visit [Amazon portal](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html#adding-security-group-rule). 
+If you need additional help, please refer to the [Amazon portal](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html#adding-security-group-rule). 
 
 
-#### Next step: [Setup Qubell Account](step-3-qubell-setup-guide.md)
+#### Next step: [Set up a Qubell Account](step-3-qubell-setup-guide.md)
