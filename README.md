@@ -40,16 +40,16 @@ ATG Starter Kit is a cloud environment that enables developers to build and test
 ### Requirements
 ATG Starter Kit requires an **m1.xlarge** AWS instance *or larger,* tested on one of the following images:
 
- | Region  		| Image-AMI 			  		|
- |------------	|----------------------------	|
- |us-east-1		| us-east-1/ami-52009e3b		|
- |eu-west-1		| eu-west-1/ami-8aa3a8fe		|
- |us-west-1		| us-west-1/ami-0a2f024f		|
- |us-west-2		| us-west-2/ami-e030a5d0		|
- |ap-southeast-1	| ap-southeast-1/ami-0c034f5e	|
- |ap-southeast-2	| ap-southeast-2/ami-f261f0c8	|
- |ap-northeast-1	| ap-northeast-1/ami-651a9b64	|
- |sa-east-1		| sa-east-1/ami-b32cf7ae		|
+| Region  		| Image-AMI 			  		|
+|------------|----------------------------|
+|us-east-1		| us-east-1/ami-52009e3b		|
+|eu-west-1		| eu-west-1/ami-8aa3a8fe		|
+|us-west-1		| us-west-1/ami-0a2f024f		|
+|us-west-2		| us-west-2/ami-e030a5d0		|
+|ap-southeast-1	| ap-southeast-1/ami-0c034f5e	|
+|ap-southeast-2	| ap-southeast-2/ami-f261f0c8	|
+|ap-northeast-1	| ap-northeast-1/ami-651a9b64	|
+|sa-east-1		| sa-east-1/ami-b32cf7ae		|
                 
 To use another image, you must specify its ID in your launch parameters, and mount a 20GB partition on '--/media/ephimeral0' (or edit manifest for installed components). We also recommend that you have a strong, working knowledge of Java. Other than that, you will be provided with all the code needed to deploy and modify the starter kit's sample web store, as well as with links to external documentation. Note that the Oracle third-party software used in the kit is available on the [Oracle website](http://www.oracle.com). 
 

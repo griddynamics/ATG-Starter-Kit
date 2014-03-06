@@ -211,19 +211,22 @@ launch:
             description: "1. ATG Starter Kit Server:"
             value: "${ips_atg_server_pub}"
         weblogic_admin_console:
-            description: "4. WebLogic Admin Console:"
+            description: "2. WebLogic Admin Console:"
             value: "http://${ips_atg_server_pub}:7001/console"
-        atg_store:
-            description: "5. ATG Production Store:"
-            value: "http://${ips_atg_server_pub}:7003/crs/storeus"            
+        atg_store_prod:
+            description: "3. ATG Production CRS:"
+            value: "http://${ips_atg_server_pub}:7003/crs/storeus"
+        atg_dynamo_prod:
+            description: "6. ATG Production Dynamo:"
+            value: "http://${ips_atg_server_pub}:7003/dyn/admin"
+        atg_dynamo_publ:
+            description: "5. ATG Publishing Dynamo:"
+            value: "http://${ips_atg_server_pub}:7103/dyn/admin"              
         atg_bcc:
-            description: "5. ATG BCC:"
+            description: "4. ATG BCC:"
             value: "http://${ips_atg_server_pub}:7103/atg/bcc"
-        dynamo:
-            description: "5. Dynamo:"
-            value: "http://${ips_atg_server_pub}:7103/dyn/admin"            
         endeca_workbench:
-            description: "6. Endeca Workbench:"
+            description: "7. Endeca Workbench:"
             value: "http://${ips_atg_server_pub}:8006"
 
 Update_Reference_Store:
