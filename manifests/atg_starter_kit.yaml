@@ -24,19 +24,18 @@ launch:
     steps:
         - get_env_props:
             action: getEnvironmentProperties
-            parameters:
-                phase: get_env_props
+            phase: get_env_props
             output:
                 env: result
 
         - launch_vm:
             action: provisionVms
+            phase: launch_vm
+            precedingPhases: [ get_env_props ]
             parameters:
                 hardwareId: "{$.instance_size}"
                 imageId: ${image}
                 vmIdentity: ec2-user
-                phase: launch_vm
-                precedingPhases: [ get_env_props ]
                 roleName: atg
                 jcloudsNodeNamePrefix: atg_starter_kit
             output:
@@ -45,9 +44,9 @@ launch:
 
         - install_endeca:
             action: chefsolo
+            phase: install_endeca
+            precedingPhases: [ launch_vm, get_env_props ]
             parameters:
-                phase: install_endeca
-                precedingPhases: [ launch_vm, get_env_props ]
                 roles: [ atg ]
                 recipeUrl: "http://${cookbooks_bucket}.s3.amazonaws.com/${cookbooks_version}/cookbooks.tar.gz"
                 runList: [ "recipe[endeca::cas]", "recipe[endeca::fix_endeca_content]" ]
@@ -56,61 +55,61 @@ launch:
                         tmp_dir: "/media/ephemeral0/tmp"
                         installation_dir: "/media/ephemeral0"
                         platform_services:
-                            url: "{$.env.properties.platform_services_binary_url}"
+                            url: "{$.env.platform_services_binary_url}"
                         presentation_api:
-                            url: "{$.env.properties.presentation_api_url}"
+                            url: "{$.env.presentation_api_url}"
                         mdex:
-                            url: "{$.env.properties.mdex_url}"
+                            url: "{$.env.mdex_url}"
                         cas:
-                            url: "{$.env.properties.cas_url}"
+                            url: "{$.env.cas_url}"
                         taf:
-                            url: "{$.env.properties.taf_url}"
+                            url: "{$.env.taf_url}"
                         crs:
                             host: "{$.ips_atg_server_private[0]}"
                     jrockit: 
-                        binary_url: "{$.env.properties.jrockit_binary_url}"
+                        binary_url: "{$.env.jrockit_binary_url}"
                         bea_home: "/media/ephemeral0/middleware"
                         tmp_path: "/media/ephemeral0/tmp"
                     weblogic:
-                        binary_url: "{$.env.properties.weblogic_binary_url}"
+                        binary_url: "{$.env.weblogic_binary_url}"
                         bea_home: "/media/ephemeral0/middleware"
                         tmp_path: "/media/ephemeral0/tmp"
-                        password: "{$.env.properties.weblogic}"
+                        password: "{$.env.weblogic}"
                     oracle_db:
-                        url: "{$.env.properties.oracle_db_xe_zip}"
+                        url: "{$.env.oracle_db_xe_zip}"
                         installation_dir: "/media/ephemeral0/oracle_xe"
                         tmp_dir: "/media/ephemeral0/tmp"
                         swap_dir: "/media/ephemeral0"
                         xe_config:
-                            admin_password: "{$.env.properties.oracle_db}"
+                            admin_password: "{$.env.oracle_db}"
                     atg:
                         db:
-                            password: "{$.env.properties.oracle_db}"
+                            password: "{$.env.oracle_db}"
                             host: "{$.ips_atg_server_private[0]}"
                         production:
                             db:
-                                password: "{$.env.properties.atg_db_production}"
+                                password: "{$.env.atg_db_production}"
                         publishing:
                             db:
-                                password: "{$.env.properties.atg_db_publishing}"
+                                password: "{$.env.atg_db_publishing}"
                         installation_dir: "/media/ephemeral0/ATG"
                         tmp_dir: "/media/ephemeral0/tmp"
-                        binary_url: "{$.env.properties.atg_binary_url}"
+                        binary_url: "{$.env.atg_binary_url}"
                         bea_home: "/media/ephemeral0/middleware"
-                        store_url: "{$.env.properties.atg_store_url}"
-                        admin_password: "{$.env.properties.atg_admin}"
-                        merch_password: "{$.env.properties.atg_admin}"
+                        store_url: "{$.env.atg_store_url}"
+                        admin_password: "{$.env.atg_admin}"
+                        merch_password: "{$.env.atg_admin}"
                         endeca:
                             path: "/media/ephemeral0/endeca"
                             host: "{$.ips_atg_server_private[0]}"
                         weblogic:
-                            password: "{$.env.properties.weblogic}"
+                            password: "{$.env.weblogic}"
 
         - install_weblogic:
             action: chefsolo
+            phase: install_weblogic
+            precedingPhases: [ install_endeca ]
             parameters:
-                phase: install_weblogic
-                precedingPhases: [ install_endeca ]
                 roles: [ atg ]
                 recipeUrl: "http://${cookbooks_bucket}.s3.amazonaws.com/${cookbooks_version}/cookbooks.tar.gz"
                 runList: [ "recipe[weblogic::default]" ]
@@ -118,9 +117,9 @@ launch:
 
         - create_weblogic_domain:
             action: chefsolo
+            phase: create_weblogic_domain
+            precedingPhases: [ install_weblogic ]
             parameters:
-                phase: create_weblogic_domain
-                precedingPhases: [ install_weblogic ]
                 roles: [ atg ]
                 recipeUrl: "http://${cookbooks_bucket}.s3.amazonaws.com/${cookbooks_version}/cookbooks.tar.gz"
                 runList: [ "recipe[weblogic::create_domain]" ]
@@ -128,18 +127,18 @@ launch:
 
         - install_oracle_db:
             action: chefsolo
+            phase: install_oracle_db
+            precedingPhases: [ create_weblogic_domain ]
             parameters:
-                phase: install_oracle_db
-                precedingPhases: [ create_weblogic_domain ]
                 roles: [ atg ]
                 recipeUrl: "http://${cookbooks_bucket}.s3.amazonaws.com/${cookbooks_version}/cookbooks.tar.gz"
                 runList: [ "recipe[oracle_db::default]" ]
                 jattrs: *Jattrss
         - init_atg_db:
             action: chefsolo
+            phase: init_atg_db
+            precedingPhases: [ install_oracle_db ]
             parameters:
-                phase: init_atg_db
-                precedingPhases: [ install_oracle_db ]
                 roles: [ atg ]
                 recipeUrl: "http://${cookbooks_bucket}.s3.amazonaws.com/${cookbooks_version}/cookbooks.tar.gz"
                 runList: [ "recipe[atg::init_db]" ]
@@ -147,9 +146,9 @@ launch:
 
         - install_atg:
             action: chefsolo
+            phase: install_atg
+            precedingPhases: [ init_atg_db ]
             parameters:
-                phase: install_atg
-                precedingPhases: [ init_atg_db ]
                 roles: [ atg ]
                 recipeUrl: "http://${cookbooks_bucket}.s3.amazonaws.com/${cookbooks_version}/cookbooks.tar.gz"
                 runList: [ "recipe[atg::install_atg]" ]
@@ -157,9 +156,9 @@ launch:
 
         - install_crs:
             action: chefsolo
+            phase: install_crs
+            precedingPhases: [ install_atg ]
             parameters:
-                phase: install_crs
-                precedingPhases: [ install_atg ]
                 roles: [ atg ]
                 recipeUrl: "http://${cookbooks_bucket}.s3.amazonaws.com/${cookbooks_version}/cookbooks.tar.gz"
                 runList: [ "recipe[atg::crs_install]" ]
@@ -167,9 +166,9 @@ launch:
 
         - setup_crs_with_endeca:
             action: chefsolo
+            phase: setup_crs_with_endeca
+            precedingPhases: [ install_crs ]
             parameters:
-                phase: setup_crs_with_endeca
-                precedingPhases: [ install_crs ]
                 roles: [ atg ]
                 recipeUrl: "http://${cookbooks_bucket}.s3.amazonaws.com/${cookbooks_version}/cookbooks.tar.gz"
                 runList: [ "recipe[atg::crs_cim_configuration]" ]
@@ -177,9 +176,9 @@ launch:
 
         - setup_weblogic:
             action: chefsolo
+            phase: setup_weblogic
+            precedingPhases: [ setup_crs_with_endeca ]
             parameters:
-                phase: setup_weblogic
-                precedingPhases: [ setup_crs_with_endeca ]
                 roles: [ atg ]
                 recipeUrl: "http://${cookbooks_bucket}.s3.amazonaws.com/${cookbooks_version}/cookbooks.tar.gz"
                 runList: [ "recipe[atg::setup_weblogic]" ]
@@ -187,9 +186,9 @@ launch:
 
         - deploy_publishing_server:
             action: chefsolo
+            phase: deploy_publishing_server
+            precedingPhases: [ setup_weblogic ]
             parameters:
-                phase: deploy_publishing_server
-                precedingPhases: [ setup_weblogic ]
                 roles: [ atg ]
                 recipeUrl: "http://${cookbooks_bucket}.s3.amazonaws.com/${cookbooks_version}/cookbooks.tar.gz"
                 runList: [ "recipe[atg::atg_deploy_publishing]" ]
@@ -197,9 +196,9 @@ launch:
 
         - run_content_promotion:
             action: chefsolo
+            phase: run_ifcr_content_promotion
+            precedingPhases: [ deploy_publishing_server ]
             parameters:
-                phase: run_ifcr_content_promotion
-                precedingPhases: [ deploy_publishing_server ]
                 roles: [ atg ]
                 recipeUrl: "http://${cookbooks_bucket}.s3.amazonaws.com/${cookbooks_version}/cookbooks.tar.gz"
                 runList: [ "recipe[endeca::promote_app_content]" ]
@@ -211,22 +210,19 @@ launch:
             description: "1. ATG Starter Kit Server:"
             value: "${ips_atg_server_pub}"
         weblogic_admin_console:
-            description: "2. WebLogic Admin Console:"
+            description: "4. WebLogic Admin Console:"
             value: "http://${ips_atg_server_pub}:7001/console"
-        atg_store_prod:
-            description: "3. ATG Production CRS:"
-            value: "http://${ips_atg_server_pub}:7003/crs/storeus"
-        atg_dynamo_prod:
-            description: "6. ATG Production Dynamo:"
-            value: "http://${ips_atg_server_pub}:7003/dyn/admin"
-        atg_dynamo_publ:
-            description: "5. ATG Publishing Dynamo:"
-            value: "http://${ips_atg_server_pub}:7103/dyn/admin"              
+        atg_store:
+            description: "5. ATG Production Store:"
+            value: "http://${ips_atg_server_pub}:7003/crs/storeus"            
         atg_bcc:
-            description: "4. ATG BCC:"
+            description: "5. ATG BCC:"
             value: "http://${ips_atg_server_pub}:7103/atg/bcc"
+        dynamo:
+            description: "5. Dynamo:"
+            value: "http://${ips_atg_server_pub}:7103/dyn/admin"            
         endeca_workbench:
-            description: "7. Endeca Workbench:"
+            description: "6. Endeca Workbench:"
             value: "http://${ips_atg_server_pub}:8006"
 
 Update_Reference_Store:
@@ -246,8 +242,8 @@ Update_Reference_Store:
 
         - update_and_build_crs_sources:
             action: chefsolo
+            phase: update_and_build_crs_sources
             parameters:
-                phase: update_and_build_crs_sources
                 roles: [ atg ]
                 recipeUrl: "http://${cookbooks_bucket}.s3.amazonaws.com/${cookbooks_version}/cookbooks.tar.gz"
                 runList: [ "recipe[atg::crs_build_from_git]" ]
@@ -256,7 +252,7 @@ Update_Reference_Store:
                         installation_dir: "/media/ephemeral0/ATG"
                         tmp_dir: "/media/ephemeral0/tmp"
                         crs:
-                            git_url: "{$.env.properties.git_repo}"
+                            git_url: "{$.env.git_repo}"
                             git_revision: "{$.git_revision}"
 
         - deploy:
