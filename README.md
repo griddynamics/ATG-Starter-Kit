@@ -9,6 +9,7 @@
 	* [How Does this Kit Work?](#how-does-it-work)
 * [Setup](#setup)
 	* [Step-by-step Setup Guide](#step-by-step-setup)
+* [Advanced Topics](#advanced-topics)
 * [Known Issues](#issues)
 
 <a name="getting-started"></a>
@@ -51,12 +52,12 @@ ATG Starter Kit requires an **m1.xlarge** AWS instance *or larger,* tested on on
 |ap-northeast-1	| ap-northeast-1/ami-651a9b64	|
 |sa-east-1		| sa-east-1/ami-b32cf7ae		|
                 
-To use another image, you must specify its ID in your launch parameters, and mount a 20GB partition on '--/media/ephimeral0' (or edit manifest for installed components). We also recommend that you have a strong, working knowledge of Java. Other than that, you will be provided with all the code needed to deploy and modify the starter kit's sample web store, as well as with links to external documentation. Note that the Oracle third-party software used in the kit is available on the [Oracle website](http://www.oracle.com). 
+To use another image, you must specify its ID in your launch parameters, and mount a 20GB partition on `'--/media/ephimeral0'` (or edit manifest for installed components). We also recommend that you have a strong, working knowledge of Java. Other than that, you will be provided with all the code needed to deploy and modify the starter kit's sample web store, as well as with links to external documentation. Note that the Oracle third-party software used in the kit is available on the [Oracle website](http://www.oracle.com). 
 
 <a name="who-wrote-this-kit"></a>
 ### Who Wrote this Starter Kit and Why?
 
-ATG Starter Kit was developed by [Grid Dynamics](http://www.griddynamics.com), in partnership with Qubell, to make creating solutions on the ATG platform with Endeca search engine faster and easier for ATG developers and QA engineers.
+ATG Starter Kit was developed by [Grid Dynamics](http://www.griddynamics.com), in partnership with Qubell, to make creating solutions on the ATG platform with Endeca Search Engine faster and easier for ATG developers and QA engineers.
 
 <a name="how-does-it-work"></a>
 ### How Does this Kit Work?
@@ -64,7 +65,7 @@ ATG Starter Kit was developed by [Grid Dynamics](http://www.griddynamics.com), i
 ATG Starter Kit has three main components:
 
 * **ATG Platform** - A set of tools and libraries for developing, deploying and configuring eCommerce applications.
-* **ATG Commerce Reference Store** - The default sample web store, written using ATG Platform.
+* **ATG Commerce Reference Store** - The sample web store, written using ATG Platform.
 * **Endeca Search Engine** - A search engine that indexes and executes search queries from ATG CRS.
 
 <a name="setup"></a>
@@ -93,13 +94,17 @@ Please refer to the steps below for getting set up.
 - **[Step 2. Set up and Configure an Amazon Web Services (AWS) Account](docs/step-2-amazon-setup-guide.md)**
 - **[Step 3. Set up a Qubell Account](docs/step-3-qubell-setup-guide.md)**
 - **[Step 4. Launch the Application](docs/step-4-launch-guide.md)**
-- **[(Optional) Modify and Update a Custom CRS with ATG Starter Kit](docs/step-5-custom-crs.md)**
+
+<a name="advanced-topics"></a>
+## Advanced Topics
+- **[Add a Custom Module to CRS](docs/custom-crs.md)**
+- **[Replace Amazon EC2 cloud with Backspace](docs/replace-ec2.md)**
 
 <a name="issues"></a>
 ## Known Issues
 - **Long delay on request to the ATG Reference Store (CRS)**
 
 	This is normal behavior. Weblogic must fully initialize the CRS servlet, so it can take a few minutes.
-- **Search box doesn’t appear on CRS home page**
+- **Search box doesn't appear on CRS home page**
 	
 	First, ensure that the Endeca service is working on Endeca Workbench. Then, try to refresh the page.
