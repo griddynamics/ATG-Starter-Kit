@@ -10,6 +10,8 @@
 * [Setup](#setup)
 	* [Step-by-step Setup Guide](#step-by-step-setup)
 * [Advanced Topics](#advanced-topics)
+	* [Add a Custom Module to CRS](docs/custom-crs.md)
+	* [Replace Amazon EC2 cloud with Backspace](docs/replace-ec2.md)
 * [Known Issues](#issues)
 
 <a name="getting-started"></a>
@@ -90,9 +92,9 @@ Please refer to the steps below for getting set up.
 
 <a name="step-by-step-setup"></a>
 ### Step-by-step Setup Guide
-- **[Step 1. Obtain the ATG Starter Kit](docs/step-1-get-starter-kit.md)**
-- **[Step 2. Set up and Configure an Amazon Web Services (AWS) Account](docs/step-2-amazon-setup-guide.md)**
-- **[Step 3. Set up a Qubell Account](docs/step-3-qubell-setup-guide.md)**
+- **[Step 1. Set up and Configure an Amazon Web Services (AWS) Account](docs/step-1-amazon-setup-guide.md)**
+- **[Step 2. Set up a Qubell Account](docs/step-2-qubell-setup-guide.md)**
+- **[Step 3. Obtain the ATG Starter Kit](docs/step-3-get-starter-kit.md)**
 - **[Step 4. Launch the Application](docs/step-4-launch-guide.md)**
 
 <a name="advanced-topics"></a>

@@ -1,8 +1,8 @@
-#### Previous Step: [Obtain the ATG Starter Kit](step-1-get-starter-kit.md)
+#### [Back to Readme](../readme.md)
 
-#Step 2. Setup your Amazon Web Services (AWS) Account
+#Step 1. Setup your Amazon Web Services (AWS) Account
 
-Since you will be deploying the sample web store and analytics on Amazon Cloud, you must have an AWS account. The instructions below will walk you through configuring your AWS account's security group to allow traffic to your applications, and adding the Amazon account to your Qubell portal. 
+Since you will be deploying the sample web store and analytics on Amazon Cloud, you must have an AWS account. The instructions below will walk you through configuring your AWS account's security group to allow traffic to your applications. 
 
 First, **sign up for an Amazon EC2 account (one that supports EC2 nodes and S3).** If you don't have an AWS account, you can create one by navigating [here](http://aws.amazon.com/account/).
 
@@ -39,4 +39,4 @@ Once you have added all rules, select the "**Apply Rule Changes**" button. The s
 If you need additional help, please refer to the [Amazon portal](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html#adding-security-group-rule). 
 
 
-#### Next step: [Set up a Qubell Account](step-3-qubell-setup-guide.md)
+#### Next step: [Set up a Qubell Account](step-2-qubell-setup-guide.md)

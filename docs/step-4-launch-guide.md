@@ -1,14 +1,18 @@
-#### Previous Step: [Set up a Qubell Account](step-3-qubell-setup-guide.md)
+#### Previous Step: [Get the ATG Starter Kit](step-3-get-starter-kit.md)
 
 #Step 4. Launch the Application
 
 ## Launching ATG Starter Kit
 
-To launch ATG Starter Kit, navigate to the "**Application**" tab, select the **Launch** drop-down button and choose **default**.
+To launch ATG Starter Kit, navigate to **Applications > Modules**.
+
+![Installed module](images/installed-module.png)
+
+Select the **Launch** drop-down button and choose **default** to launch the instance or **Advanced Launch...** to change the default instance parameters (e.g. image AMI, instance size, cookbooks location on S3, and destroy time, which should be at least 2 hours).
 
 ![Launch Starter Kit 1](images/launch-sk-1.png)
 
-Within the launch setup dialog window, you can change your default instance parameters, including image AMI, instance size, cookbooks location on S3 and destroy time (which should be at least 2 hours). Select the **Launch** button. The instance will take about an hour to reach a running state.
+Select the **Launch** button. The instance will take about an hour to reach a running state.
 
 ![Starter Kit Advanced Launch](images/launch-advanced-launch.png)
 
@@ -36,4 +40,6 @@ Your search results will appear shortly. For custom search results, use left sel
 
 **IMPORTANT: Set the git_repo env property first**
 
-To redeploy CRS from customs sources, go to your Git repository, select the "**Update Reference Store**" triangle button and choose "Advanced". Use *master* as the default branch (or specify another branch or revision) and select "**Execute**." The redeployment process takes about 15 minutes.
+To redeploy CRS from customs sources, go to your Git repository, select **Update Reference Store > Advanced**. Use *master* as the default branch (or specify another branch or revision) and select "**Execute**." The redeployment process takes about 15 minutes.
+
+#### [Back to Readme](../readme.md)
