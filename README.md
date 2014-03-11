@@ -25,7 +25,7 @@ ATG Starter Kit is a cloud environment that enables developers to build and test
 - Offers a platform quick start by providing the tools needed to develop ATG eCommerce applications.
 - Enables ATG application deployment from a GIT repository.
 - Simplifies the process of deploying and configuring ATG Platform and Endeca Search Engine.
-- Provides a thorough and complete example of an ATG Commerce Reference Store with Endeca Search Engine running on Weblogic and Oracle Database. 
+- Provides a thorough and complete example of ATG Commerce Reference Store with Endeca Search Engine running on Weblogic and Oracle Database. 
 
 <a name="technologies"></a>
 ### Technologies
