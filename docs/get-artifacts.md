@@ -1,6 +1,6 @@
 #Obtaining Artifacts
 
-ATG Starter Kit requires that certain binary artifacts must be accessible by a direct link. Due to a licensing limitation, you'll need to download the binaries on your own.
+ATG Starter Kit requires that certain binary artifacts be accessible by direct link. Due to licensing limitations, you'll need to download the binaries on your own.
 
 ##ATG Platform and Endeca
 
@@ -12,7 +12,7 @@ To obtain Oracle Database 11g Express, visit the [download page](http://www.orac
 
 ##Oracle WebLogic Server 11g
 
-To obtain Weblogic 11g (10.3.6), visit the [download page](http://www.oracle.com/technetwork/middleware/ias/downloads/wls-main-097127.html) and accept License Agreement. Select **See all files** for Oracle WebLogic Server 10.3.6 and then choose the generic binary from the "**Additional Platforms**" column.
+To obtain Weblogic 11g (10.3.6), visit the [download page](http://www.oracle.com/technetwork/middleware/ias/downloads/wls-main-097127.html) and accept the License Agreement. Select **See all files** for Oracle WebLogic Server 10.3.6 and then choose the generic binary from the "**Additional Platforms**" column.
 
 
 
