@@ -55,55 +55,55 @@ launch:
                         tmp_dir: "/media/ephemeral0/tmp"
                         installation_dir: "/media/ephemeral0"
                         platform_services:
-                            url: "{$.env.platform_services_binary_url}"
+                            url: "{$.env.properties.platform_services_binary_url}"
                         presentation_api:
-                            url: "{$.env.presentation_api_url}"
+                            url: "{$.env.properties.presentation_api_url}"
                         mdex:
-                            url: "{$.env.mdex_url}"
+                            url: "{$.env.properties.mdex_url}"
                         cas:
-                            url: "{$.env.cas_url}"
+                            url: "{$.env.properties.cas_url}"
                         taf:
-                            url: "{$.env.taf_url}"
+                            url: "{$.env.properties.taf_url}"
                         crs:
                             host: "{$.ips_atg_server_private[0]}"
                     jrockit: 
-                        binary_url: "{$.env.jrockit_binary_url}"
+                        binary_url: "{$.env.properties.jrockit_binary_url}"
                         bea_home: "/media/ephemeral0/middleware"
                         tmp_path: "/media/ephemeral0/tmp"
                     weblogic:
-                        binary_url: "{$.env.weblogic_binary_url}"
+                        binary_url: "{$.env.properties.weblogic_binary_url}"
                         bea_home: "/media/ephemeral0/middleware"
                         tmp_path: "/media/ephemeral0/tmp"
-                        password: "{$.env.weblogic}"
+                        password: "{$.env.properties.weblogic}"
                     oracle_db:
-                        url: "{$.env.oracle_db_xe_zip}"
+                        url: "{$.env.properties.oracle_db_xe_zip}"
                         installation_dir: "/media/ephemeral0/oracle_xe"
                         tmp_dir: "/media/ephemeral0/tmp"
                         swap_dir: "/media/ephemeral0"
                         xe_config:
-                            admin_password: "{$.env.oracle_db}"
+                            admin_password: "{$.env.properties.oracle_db}"
                     atg:
                         db:
-                            password: "{$.env.oracle_db}"
+                            password: "{$.env.properties.oracle_db}"
                             host: "{$.ips_atg_server_private[0]}"
                         production:
                             db:
-                                password: "{$.env.atg_db_production}"
+                                password: "{$.env.properties.atg_db_production}"
                         publishing:
                             db:
-                                password: "{$.env.atg_db_publishing}"
+                                password: "{$.env.properties.atg_db_publishing}"
                         installation_dir: "/media/ephemeral0/ATG"
                         tmp_dir: "/media/ephemeral0/tmp"
-                        binary_url: "{$.env.atg_binary_url}"
+                        binary_url: "{$.env.properties.atg_binary_url}"
                         bea_home: "/media/ephemeral0/middleware"
-                        store_url: "{$.env.atg_store_url}"
-                        admin_password: "{$.env.atg_admin}"
-                        merch_password: "{$.env.atg_admin}"
+                        store_url: "{$.env.properties.atg_store_url}"
+                        admin_password: "{$.env.properties.atg_admin}"
+                        merch_password: "{$.env.properties.atg_admin}"
                         endeca:
                             path: "/media/ephemeral0/endeca"
                             host: "{$.ips_atg_server_private[0]}"
                         weblogic:
-                            password: "{$.env.weblogic}"
+                            password: "{$.env.properties.weblogic}"
 
         - install_weblogic:
             action: chefsolo
@@ -255,7 +255,7 @@ Update_Reference_Store:
                         installation_dir: "/media/ephemeral0/ATG"
                         tmp_dir: "/media/ephemeral0/tmp"
                         crs:
-                            git_url: "{$.env.git_repo}"
+                            git_url: "{$.env.properties.git_repo}"
                             git_revision: "{$.git_revision}"
 
         - deploy:
