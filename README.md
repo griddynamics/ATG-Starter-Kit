@@ -11,7 +11,7 @@
 	* [Step-by-step Setup Guide](#step-by-step-setup)
 * [Advanced Topics](#advanced-topics)
 	* [Add a Custom Module to CRS](docs/custom-crs.md)
-	* [Replace Amazon EC2 cloud with Backspace](docs/replace-ec2.md)
+	* [Replace Amazon EC2 cloud with Rackspace](docs/replace-ec2.md)
 * [Known Issues](#issues)
 
 <a name="getting-started"></a>
@@ -76,7 +76,7 @@ You will need to set up the following in order to use ATG Starter Kit:
 
 * A [Qubell Adaptive PaaS](http://qubell.com) account
 * An Amazon AWS account
-* Installation binaries, which are described in the [Getting Artifacts Guide](docs/get-artefacts.md)
+* Installation binaries, which are described in the [Getting Artifacts Guide](docs/get-artifacts.md)
 	* ATG Platform 10.2
 	* ATG Commerce Reference Store 10.2
 	* JRockit 6r28
