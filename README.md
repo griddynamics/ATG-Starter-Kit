@@ -1,6 +1,6 @@
 # ATG Starter Kit
 
-[![Install](https://raw.github.com/qubell-bazaar/component-skeleton/master/img/install.png)](https://express.qubell.com/applications/upload?metadataUrl=https://raw.github.com/griddynamics/ATG-Starter-Kit/master/manifests/atg_starter_kit.yaml)
+[![Install](https://raw.github.com/qubell-bazaar/component-skeleton/master/img/install.png)](https://express.qubell.com/applications/upload?metadataUrl=https://raw.github.com/griddynamics/ATG-Starter-Kit/master/manifests/ATG-Starter-Kit.yaml)
 
 * [Getting Started](#getting-started)
 	* [What is ATG Starter Kit?](#what-is-atg-starter-kit)
