@@ -42,4 +42,4 @@ Your search results will appear shortly. For custom search results, use left sel
 
 To redeploy CRS from customs sources, go to your Git repository, select **Update Reference Store > Advanced**. Use *master* as the default branch (or specify another branch or revision) and select "**Execute**." The redeployment process takes about 15 minutes.
 
-#### [Back to Readme](../readme.md)
+#### [Back to Readme](../README.md)
