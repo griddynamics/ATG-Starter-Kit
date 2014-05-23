@@ -112,3 +112,24 @@ Please refer to the steps below for getting set up.
 - **Search box doesn't appear on CRS home page**
 	
 	First, ensure that the Endeca service is working on Endeca Workbench. Then, try to refresh the page.
+=======
+ATG-Starter-Kit
+===================
+
+[![Install](https://raw.github.com/qubell-bazaar/component-skeleton/master/img/install.png)](https://express.qubell.com/applications/upload?metadataUrl=https://github.com/qubell-bazaar/ATG-Starter-Kit/raw/master/meta.yml)
+
+ATG-Starter-Kit
+
+![](http://www.broadleafcommerce.com/img/broadleaf_logo_white.png)
+![](http://tomcat.apache.org/images/tomcat-power.gif)
+![](https://lucene.apache.org/images/solr.png)
+
+ATG Starter Kit is a cloud environment that enables developers to build and test eCommerce applications on Amazon AWS with [Qubell Adaptive PaaS](http://qubell.com). It presents the following key benefits:
+
+ - Offers a platform quick start by providing the tools needed to develop ATG eCommerce applications.
+ - Enables ATG application deployment from a GIT repository.
+ - Simplifies the process of deploying and configuring ATG Platform and Endeca Search Engine.
+ - Provides a thorough and complete example of ATG Commerce Reference Store with Endeca Search Engine running on Weblogic and Oracle Database.
+
+Features
+--------
