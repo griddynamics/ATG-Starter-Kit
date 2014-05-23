@@ -1,7 +1,0 @@
-connect('<%= node[:atg][:weblogic][:username] %>','<%= node[:atg][:weblogic][:password] %>','t3://<%= node[:atg][:weblogic][:domain_name] %>:<%= node[:atg][:weblogic][:port] %>')
-
-start('<%= node[:atg][:publishing][:instance] %>','Server','t3://<%= node[:atg][:weblogic][:host] %>:<%= node[:atg][:weblogic][:port] %>')
-start('<%= node[:atg][:production][:instance] %>','Server','t3://<%= node[:atg][:weblogic][:host] %>:<%= node[:atg][:weblogic][:port] %>')
-
-disconnect()
-exit()
