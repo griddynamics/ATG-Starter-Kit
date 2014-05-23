@@ -1,6 +1,6 @@
 # ATG Starter Kit
 
-[![Install](https://raw.github.com/qubell-bazaar/component-skeleton/master/img/install.png)](https://express.qubell.com/applications/upload?metadataUrl=https://raw.github.com/griddynamics/ATG-Starter-Kit/master/manifests/ATG-Starter-Kit.yaml)
+[![Install](https://raw.github.com/qubell-bazaar/component-skeleton/master/img/install.png)](https://express.qubell.com/applications/upload?metadataUrl=https://raw.github.com/griddynamics/ATG-Starter-Kit/master/ATG-Starter-Kit.yml)
 
 * [Getting Started](#getting-started)
 	* [What is ATG Starter Kit?](#what-is-atg-starter-kit)
@@ -112,21 +112,3 @@ Please refer to the steps below for getting set up.
 - **Search box doesn't appear on CRS home page**
 	
 	First, ensure that the Endeca service is working on Endeca Workbench. Then, try to refresh the page.
-=======
-ATG-Starter-Kit
-===================
-
-[![Install](https://raw.github.com/qubell-bazaar/component-skeleton/master/img/install.png)](https://express.qubell.com/applications/upload?metadataUrl=https://github.com/qubell-bazaar/ATG-Starter-Kit/raw/master/meta.yml)
-
-ATG-Starter-Kit
-
-
-ATG Starter Kit is a cloud environment that enables developers to build and test eCommerce applications on Amazon AWS with [Qubell Adaptive PaaS](http://qubell.com). It presents the following key benefits:
-
- - Offers a platform quick start by providing the tools needed to develop ATG eCommerce applications.
- - Enables ATG application deployment from a GIT repository.
- - Simplifies the process of deploying and configuring ATG Platform and Endeca Search Engine.
- - Provides a thorough and complete example of ATG Commerce Reference Store with Endeca Search Engine running on Weblogic and Oracle Database.
-
-Features
---------
