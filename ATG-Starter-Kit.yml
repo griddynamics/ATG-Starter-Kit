@@ -1,0 +1,433 @@
+application:
+  configuration:
+    input.atg-admin-password: "123QweAsd"
+    input.atg-db-production-user: "atg_prod"
+    input.atg-db-production-password: "123QweAsd"
+    input.atg-db-publishing-user: "atg_publ"
+    input.atg-db-publishing-password: "123QweAsd"
+    input.atg-binary-url: "https://s3.amazonaws.com/ab-atg/ATG-Platform-10.2_394REL.bin"
+    input.atg-store-url: "https://s3.amazonaws.com/ab-atg/ATG-CommerceReferenceStore10.2.1_252REL.bin"
+    input.atg-recipe-url: "https://s3.amazonaws.com/qubell-starter-kit-artifacts/qubell-bazaar/ATG-Starter-Kit-cookbooks-stable-50cc852.tar.gz"
+    input.db-root-password: "123QweAsd"
+    input.weblogic-user: "weblogic"
+    input.weblogic-user-password: "123QweAsd"
+    input.installation-dir: "/media/ephemeral0"
+    input.tmp-dir: "/media/ephemeral0/tmp"
+    input.image: "us-east-1/ami-1ba18d72"
+    input.image-user: "ec2-user"
+    input.git-url: ""
+    input.git-revision: ""
+
+  interfaces:
+    input:
+      atg-admin-password: "bind(atg#input.atg-admin-password)"
+      atg-db-production-user: "bind(atg#input.atg-db-production-user)"
+      atg-db-production-password: "bind(atg#input.atg-db-production-password)"
+      atg-db-publishing-user: "bind(atg#input.atg-db-publishing-user)"
+      atg-db-publishing-password: "bind(atg#input.atg-db-publishing-password)"
+      atg-binary-url: "bind(atg#input.atg-binary-url)"
+      atg-store-url: "bind(atg#input.atg-store-url)"
+      atg-recipe-url: "bind(atg#input.atg-recipe-url)"
+      db-root-password: "bind(db#input.db-root-password)"
+      weblogic-user: "bind(weblogic#input.weblogic-user, atg#input.weblogic-user)"
+      weblogic-user-password: "bind(weblogic#input.weblogic-user-password, atg#input.weblogic-user-password)"
+      installation-dir: "bind(weblogic#input.installation-dir, atg#input.installation-dir)"
+      tmp-dir: "bind(weblogic#input.tmp-dir, atg#input.tmp-dir)"
+      image: "bind(weblogic#input.image, db#input.image)"
+      image-user: "bind(weblogic#input.image-user, db#input.image-user, atg#input.image-user)"
+      git-url: "bind(atg#input.git-url)"
+      git-revision: "bind(atg#input.git-revision)"
+    endpoints:
+      atg-store-prod: "bind(atg#result.atg-store-prod)"
+      atg-dynamo-prod: "bind(atg#result.atg-dynamo-prod)"
+      atg-dynamo-publ: "bind(atg#result.atg-dynamo-publ)"
+      atg-bcc: "bind(atg#result.atg-bcc)"
+      endeca-workbench: "bind(atg#result.endeca-workbench)"
+    nodes:
+      atg-hosts: "bind(atg#result.atg-hosts)"
+
+  bindings:
+    - [atg, db]
+    - [atg, weblogic]
+
+  components:
+    db:
+      type: reference.Submodule
+      configuration:
+        __locator.application-id: "Database"
+      interfaces:
+        input: 
+          db-root-password: configuration(string)
+          image: configuration(string)
+          image-user: configuration(string)
+        manage:
+          user: receive-command(string db-user, string db-user-password, list<string> db-user-privileges, list<string> db-user-management-action)
+          sql-query: receive-command(string sql-row, string db-user, string db-user-password)
+        output:
+          dbms: publish-signal(object)
+          db-host: publish-signal(string)
+          db-port: publish-signal(int)
+
+    weblogic:
+      type: reference.Submodule
+      configuration:
+        __locator.application-id: "Application Server"
+      interfaces:
+        input:
+          weblogic-user: configuration(string)
+          weblogic-user-password: configuration(string)
+          installation-dir: configuration(string)
+          tmp-dir: configuration(string)
+          image: configuration(string)
+          image-user: configuration(string)
+        output:
+          wl-hosts: publish-signal(list<string>)
+          wl-hostname: publish-signal(string)
+          wl-port: publish-signal(string)
+          wl-console: publish-signal(string)
+
+    atg:
+      type: workflow.Instance
+      interfaces:
+        input:
+          atg-admin-password: configuration(string)
+          atg-db-production-user: configuration(string)
+          atg-db-production-password: configuration(string)
+          atg-db-publishing-user: configuration(string)
+          atg-db-publishing-password: configuration(string)
+          atg-binary-url: configuration(string)
+          atg-store-url: configuration(string)
+          atg-recipe-url: configuration(string)
+          weblogic-user: configuration(string)
+          weblogic-user-password: configuration(string)
+          installation-dir: configuration(string)
+          tmp-dir: configuration(string)
+          image-user: configuration(string)
+          git-url: configuration(string)
+          git-revision: configuration(string)
+        wl-nodes:
+          wl-hosts: consume-signal(list<string>)
+          wl-hostname: consume-signal(string)
+          wl-port: consume-signal(string)
+        db-nodes:
+          dbms: consume-signal(object)
+          db-host: consume-signal(string)
+        db-manage:
+          user: send-command(string db-user, string db-user-password, list<string> db-user-privileges, list<string> db-user-management-action)
+          sql-query: send-command(string sql-row, string db-user, string db-user-password)
+        result:
+          atg-hosts: publish-signal(list<string>)
+          atg-store-prod: publish-signal(list<string>)
+          atg-dynamo-prod: publish-signal(list<string>)
+          atg-dynamo-publ: publish-signal(list<string>)
+          atg-bcc: publish-signal(list<string>)
+          endeca-workbench: publish-signal(list<string>)
+
+      required: [wl-nodes, db-nodes, db-manage]
+
+      configuration:
+        configuration.triggers:
+          input.git-url: update-reference-store
+          input.git-revision: update-reference-store
+        configuration.propagateStatus: [update-reference-store]
+        configuration.workflows:
+          launch:
+            parameters:
+              - atg-admin-password:
+                  description: ATG administator's password
+              - weblogic-user:
+                  description: Weblogic admin user
+              - weblogic-user-password:
+                  description: Weblogic admin user's password
+              - atg-db-production-user:
+                  description: DB production user name
+              - atg-db-production-password:
+                  description: DB production user's password
+              - atg-db-publishing-user:
+                  description: DB publishing user name
+              - atg-db-publishing-password:
+                  description: DB publishing user's password
+              - atg-binary-url:
+                  description: ATG binary source url
+              - atg-store-url:
+                  description: ATG store source url
+              - atg-recipe-url:
+                  description: URL to atg chef recipies
+              - installation-dir:
+                  description: Path to installation directory
+              - tmp-dir:
+                  description: Path to tmp directory
+              - image-user:
+                  description: Image ssh user
+            steps:
+              - get-env-props:
+                  action: getEnvironmentProperties
+                  output:
+                    props: result
+              - provision-node:
+                  action: provisionVms
+                  precedingPhases: [ get-env-props ]
+                  parameters:
+                    roleName: default
+                    hardwareId: ""
+                    #vmIdentity: ec2-user
+                    vmIdentity: "{$.image-user}"
+                    retryCount: 0
+                    staticIps: "{$.props.wl-nodes.wl-hosts}"
+                  output:
+                    atg-hosts: ips
+              - create-db-user-production:
+                  action: serviceCall
+                  precedingPhases: [ get-env-props ]
+                  parameters:
+                    timeout: 300
+                    service: db-manage
+                    command: user
+                    arguments:
+                      db-user: "{$.atg-db-production-user}"
+                      db-user-password: "{$.atg-db-production-password}"
+                      db-user-privileges: ["all"]
+                      db-user-management-action: ["create","grant"]
+              - create-db-user-publishing:
+                  action: serviceCall
+                  precedingPhases: [get-env-props]
+                  parameters:
+                    timeout: 300
+                    service: db-manage
+                    command: user
+                    arguments:
+                      db-user: "{$.atg-db-publishing-user}"
+                      db-user-password: "{$.atg-db-publishing-password}"
+                      db-user-privileges: ["all"]
+                      db-user-management-action: ["create","grant"]
+              - add-db-datafile:
+                  action: serviceCall
+                  precedingPhases: [get-env-props]
+                  parameters:
+                    timeout: 300
+                    service: db-manage
+                    command: sql-query
+                    arguments:
+                      sql-row: "ALTER TABLESPACE system ADD DATAFILE '/opt/oracle_xe/app/oracle/oradata/XE/system02.dbf' SIZE 1G AUTOEXTEND OFF"
+                      db-user: "{$.props.db-nodes.dbms.db-root-user}"
+                      db-user-password: "{$.props.db-nodes.dbms.db-root-password}"
+              - install-endeca:
+                  action: "chefrun"
+                  precedingPhases: [provision-node]
+                  parameters:
+                    isSolo: true
+                    roles: [default]
+                    recipeUrl: "{$.atg-recipe-url}"
+                    runList: [ "recipe[endeca::cas]", "recipe[endeca::fix_endeca_content]" ]
+                    jattrs:
+                      endeca:
+                        installation_dir: "{$.installation-dir}"
+                        tmp_dir: "{$.tmp-dir}"
+                        platform_services:
+                          url: "https://s3.amazonaws.com/ab-atg/platformservices_614734339_x86_64pc-linux.sh"
+                        presentation_api:
+                          url: "https://s3.amazonaws.com/ab-atg/presAPI_6.4.1.2.763315_x86_64pc-linux.tgz"
+                        mdex:
+                          url: "https://s3.amazonaws.com/ab-atg/mdex_6.4.1.2.763315_x86_64pc-linux.sh"
+                        cas:
+                          url: "https://s3.amazonaws.com/ab-atg/cas-3.1.2.1-x86_64pc-linux.RC2.sh"
+                        taf:
+                          url: "https://s3.amazonaws.com/ab-atg/Endeca-Tools-and-Frameworks-3.1.2.zip"
+                        crs:
+                          host: "{$.props.wl-nodes.wl-hostname}"
+
+              - install-atg:
+                  action: "chefrun"
+                  precedingPhases: [install-endeca]
+                  parameters:
+                    isSolo: true
+                    roles: [default]
+                    recipeUrl: "{$.atg-recipe-url}"
+                    runList: ["recipe[atg::install_atg]"]
+                    jattrs:
+                      atg:
+                        binary_url: "{$.atg-binary-url}"
+                        installation_dir: "{$.installation-dir}/atg"
+                        tmp_dir: "{$.tmp-dir}"
+                        bea_home: "{$.installation-dir}"
+                        weblogic:
+                          host: "{$.props.wl-nodes.wl-hostname}"
+                          port: "{$.props.wl-nodes.wl-port}"
+                      java:
+                        java_home: "/usr/lib/jvm/java"
+              - install-crs:
+                  action: "chefrun"
+                  precedingPhases: [install-atg, install-endeca]
+                  parameters:
+                    isSolo: true
+                    roles: [default]
+                    recipeUrl: "{$.atg-recipe-url}"
+                    runList: ["recipe[atg::crs_install]"]
+                    jattrs:
+                      atg:
+                        store_url: "{$.atg-store-url}"
+                        installation_dir: "{$.installation-dir}/atg"
+              - setup-crs-with-endeca:
+                  action: "chefrun"
+                  precedingPhases: [ install-crs ]
+                  parameters:
+                    isSolo: true
+                    roles: [default]
+                    recipeUrl: "{$.atg-recipe-url}"
+                    runList: [ "recipe[atg::crs_cim_configuration]" ]
+                    jattrs:
+                      atg:
+                        admin_password: "{$.atg-admin-password}"
+                        merch_password: "{$.atg-admin-password}"
+                        installation_dir: "{$.installation-dir}/atg"
+                        bea_home: "{$.installation-dir}"
+                        weblogic:
+                          username: "{$.weblogic-user}"
+                          password: "{$.weblogic-user-password}"
+                          installation_dir: "{$.installation-dir}/weblogic"
+                        publishing:
+                          db:
+                            hostname: "{$.props.db-nodes.db-host}"
+                            port: "{$.props.db-nodes.dbms.db-port}"
+                            username: "{$.atg-db-publishing-user}"
+                            password: "{$.atg-db-publishing-password}"
+                        production:
+                          db:
+                            hostname: "{$.props.db-nodes.db-host}"
+                            port: "{$.props.db-nodes.dbms.db-port}"
+                            username: "{$.atg-db-production-user}"
+                            password: "{$.atg-db-production-password}"
+              - setup-weblogic:
+                  action: "chefrun"
+                  precedingPhases: [ setup-crs-with-endeca ]
+                  parameters:
+                    isSolo: true
+                    roles: [default]
+                    recipeUrl: "{$.atg-recipe-url}"
+                    runList: ["recipe[atg::setup_weblogic]"]
+                    jattrs:
+                      weblogic:
+                        username: "{$.weblogic-user}"
+                        password: "{$.weblogic-user-password}"
+                        bea_home: "{$.installation-dir}"
+                        weblogic_home: "{$.installation-dir}/weblogic"
+                      atg:
+                        bea_home: "{$.installation-dir}"
+                        weblogic:
+                          username: "{$.weblogic-user}"
+                          password: "{$.weblogic-user-password}"
+                          bea_home: "{$.installation-dir}"
+                          weblogic_home: "{$.installation-dir}/weblogic"
+              - deploy-publishing-server:
+                  action: "chefrun"
+                  precedingPhases: [setup-weblogic]
+                  parameters:
+                    isSolo: true
+                    roles: [default]
+                    recipeUrl: "{$.atg-recipe-url}"
+                    runList: [ "recipe[atg::atg_deploy_publishing]" ]
+                    jattrs:
+                      atg:
+                        admin_password: "{$.atg-admin-password}"
+              - run-content-promotion:
+                  action: "chefrun"
+                  precedingPhases: [deploy-publishing-server]
+                  parameters:
+                    isSolo: true
+                    roles: [default]
+                    recipeUrl: "{$.atg-recipe-url}"
+                    runList: ["recipe[endeca::promote_app_content]"]
+                    jattrs:
+                      endeca:
+                        apps_dir: "{$.installation-dir}/endeca/apps"
+            return:
+              atg-hosts:
+                value: "{$.atg-hosts}"
+              atg-store-prod:
+                value: "http://{$.atg-hosts}:7003/crs/storeus"
+              atg-dynamo-prod:
+                value: "http://{$.atg-hosts}:7003/dyn/admin"
+              atg-dynamo-publ:
+                value: "http://{$.atg-hosts}:7103/dyn/admin"
+              atg-bcc:
+                value: "http://{$.atg-hosts}:7103/atg/bcc"
+              endeca-workbench:
+                value: "http://{$.atg-hosts}:8006"
+
+          update-reference-store:
+            parameters:
+              - git-revision:
+                  description: "Git revision (tag or branch)"
+              - git-url:
+                  description: "Git URL"
+            steps:
+              - undeploy:
+                  action: chefrun
+                  parameters:
+                    roles: [default]
+                    isSolo: true
+                    recipeUrl: "{$.atg-recipe-url}"
+                    runList: ["recipe[atg::crs_undeploy]"]
+                    jattrs:
+                      weblogic:
+                        username: "{$.weblogic-user}"
+                        password: "{$.weblogic-user-password}"
+                        bea_home: "{$.installation-dir}"
+                        weblogic_home: "{$.installation-dir}/weblogic"
+                      atg:
+                        bea_home: "{$.installation-dir}"
+                        weblogic:
+                          username: "{$.weblogic-user}"
+                          password: "{$.weblogic-user-password}"
+                          bea_home: "{$.installation-dir}"
+                          weblogic_home: "{$.installation-dir}/weblogic"
+
+              - update-and-build-crs-sources:
+                  action: chefrun
+                  parameters:
+                    roles: [default]
+                    isSolo: true
+                    recipeUrl: "{$.atg-recipe-url}"
+                    runList: ["recipe[atg::crs_build_from_git]"]
+                    jattrs:
+                      atg:
+                        bea_home: "{$.installation-dir}"
+                        installation_dir: "{$.installation-dir}/atg"
+                        crs:
+                          git_url: "{$.git-url}"
+                          git_revision: "{$.git-revision}"
+              - deploy:
+                  action: chefrun
+                  precedingPhases: [undeploy, update-and-build-crs-sources]
+                  parameters:
+                    isSolo: true
+                    roles: [default]
+                    recipeUrl: "{$.atg-recipe-url}"
+                    runList: ["recipe[atg::crs_redeploy]"]
+                    jattrs:
+                      weblogic:
+                        username: "{$.weblogic-user}"
+                        password: "{$.weblogic-user-password}"
+                        bea_home: "{$.installation-dir}"
+                        weblogic_home: "{$.installation-dir}/weblogic"
+                      atg:
+                        admin_password: "{$.atg-admin-password}"
+                        merch_password: "{$.atg-admin-password}"
+                        installation_dir: "{$.installation-dir}/atg"
+                        bea_home: "{$.installation-dir}"
+                        weblogic:
+                          username: "{$.weblogic-user}"
+                          password: "{$.weblogic-user-password}"
+                          installation_dir: "{$.installation-dir}/weblogic"
+                        publishing:
+                          db:
+                            hostname: "{$.props.db-nodes.db-host}"
+                            port: "{$.props.db-nodes.dbms.db-port}"
+                            username: "{$.atg-db-publishing-user}"
+                            password: "{$.atg-db-publishing-password}"
+                        production:
+                          db:
+                            hostname: "{$.props.db-nodes.db-host}"
+                            port: "{$.props.db-nodes.dbms.db-port}"
+                            username: "{$.atg-db-production-user}"
+                            password: "{$.atg-db-production-password}"

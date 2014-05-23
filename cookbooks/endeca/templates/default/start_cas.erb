@@ -1,6 +1,0 @@
-#!/bin/sh
-ENDECA_USER=<%= node[:endeca][:user] %>
-CAS_ROOT=<%= node[:endeca][:installation_dir] %>/endeca/CAS/<%= node[:endeca][:cas][:version] %>
-CAS_WORKSPACE=<%= node[:endeca][:installation_dir] %>/endeca/CAS/workspace
-# change to user endeca
-su $ENDECA_USER -c "$CAS_ROOT/bin/cas-service.sh >> $CAS_WORKSPACE/logs/cas-service-wrapper.log 2>&1"

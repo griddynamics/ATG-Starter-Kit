@@ -1,0 +1,19 @@
+kit:
+  name: "ATG-Starter-Kit"
+  link: https://github.com/qubell-bazaar/ATG-Starter-Kit
+  applications:
+    - name: ATG-Starter-Kit
+      manifest: https://raw.github.com/griddynamics/ATG-Starter-Kit/master/ATG-Starter-Kit.yml
+    - name: "Database"
+      manifest: https://raw.github.com/qubell-bazaar/component-oracle-db-xe/0.1.1/component-oracle-db-xe.yml
+    - name: "Application Server"
+      manifest: https://raw.github.com/qubell-bazaar/component-oracle-weblogic/master/component-oracle-weblogic.yml
+  provider:
+    name: "Qubell"
+    link: http://qubell.com
+  documentation:
+    overview: |
+      This application requires the following items to be configured in your environment:
+        * Amazon EC2 or Rackspace CloudServers account;
+        * Ports 1521, 8080, 7001 open on the ﬁrewall.
+      Please refer to the Getting Started for step-by-step instructions on how to configure your environment.

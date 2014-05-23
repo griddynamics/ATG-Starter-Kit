@@ -1,0 +1,4 @@
+simplejson
+pyaml
+requests
+qubell-api-python-client
