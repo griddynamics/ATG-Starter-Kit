@@ -1,0 +1,3 @@
+[submodule "component-skeleton"]
+	path = component-skeleton
+	url = https://github.com/qubell-bazaar/component-skeleton.git
