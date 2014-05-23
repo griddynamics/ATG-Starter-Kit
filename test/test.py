@@ -21,7 +21,8 @@ class ATGTestCase(BaseComponentTestCase):
     name = "ATG-Starter-Kit"
     apps = [{
         "name": name,
-        "file": os.path.realpath(os.path.join(os.path.dirname(__file__), '../%s.yml' % name))
+        "file": os.path.realpath(os.path.join(os.path.dirname(__file__), '../%s.yml' % name)),
+        "settings": {"destroyInterval": 1000*60*60*2}
     },{
         "name": "Database",
         "url": "https://raw.github.com/qubell-bazaar/component-oracle-db-xe/master/component-oracle-db-xe.yml",
