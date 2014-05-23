@@ -120,9 +120,6 @@ ATG-Starter-Kit
 
 ATG-Starter-Kit
 
-![](http://www.broadleafcommerce.com/img/broadleaf_logo_white.png)
-![](http://tomcat.apache.org/images/tomcat-power.gif)
-![](https://lucene.apache.org/images/solr.png)
 
 ATG Starter Kit is a cloud environment that enables developers to build and test eCommerce applications on Amazon AWS with [Qubell Adaptive PaaS](http://qubell.com). It presents the following key benefits:
 
