@@ -7,7 +7,7 @@ application:
     input.atg-db-publishing-password: "123QweAsd"
     input.atg-binary-url: "https://s3.amazonaws.com/ab-atg/ATG-Platform-10.2_394REL.bin"
     input.atg-store-url: "https://s3.amazonaws.com/ab-atg/ATG-CommerceReferenceStore10.2.1_252REL.bin"
-    input.atg-recipe-url: "https://dl.dropboxusercontent.com/u/250836/atg-cookbooks.tar.gz"
+    input.atg-recipe-url: "https://s3.amazonaws.com/qubell-starter-kit-artifacts/qubell-bazaar/ATG-Starter-Kit-cookbooks-stable-50cc852.tar.gz"
     input.db-root-password: "123QweAsd"
     input.weblogic-user: "weblogic"
     input.weblogic-user-password: "123QweAsd"
@@ -54,14 +54,14 @@ application:
     db:
       type: reference.Submodule
       configuration:
-        __locator.application-id: "Oracle-DB-xe"
+        __locator.application-id: "Database"
       interfaces:
         input: 
           db-root-password: configuration(string)
           image: configuration(string)
           image-user: configuration(string)
         manage:
-          user: receive-command(string db-user, string db-user-password, list<string> db-user-privileges, list<string> db-user-mangement-action)
+          user: receive-command(string db-user, string db-user-password, list<string> db-user-privileges, list<string> db-user-management-action)
           sql-query: receive-command(string sql-row, string db-user, string db-user-password)
         output:
           dbms: publish-signal(object)
@@ -71,7 +71,7 @@ application:
     weblogic:
       type: reference.Submodule
       configuration:
-        __locator.application-id: "Weblogic"
+        __locator.application-id: "Application Server"
       interfaces:
         input:
           weblogic-user: configuration(string)
@@ -113,7 +113,7 @@ application:
           dbms: consume-signal(object)
           db-host: consume-signal(string)
         db-manage:
-          user: send-command(string db-user, string db-user-password, list<string> db-user-privileges, list<string> db-user-mangement-action)
+          user: send-command(string db-user, string db-user-password, list<string> db-user-privileges, list<string> db-user-management-action)
           sql-query: send-command(string sql-row, string db-user, string db-user-password)
         result:
           atg-hosts: publish-signal(list<string>)
@@ -187,7 +187,7 @@ application:
                       db-user: "{$.atg-db-production-user}"
                       db-user-password: "{$.atg-db-production-password}"
                       db-user-privileges: ["all"]
-                      db-user-mangement-action: ["create","grant"]
+                      db-user-management-action: ["create","grant"]
               - create-db-user-publishing:
                   action: serviceCall
                   precedingPhases: [get-env-props]
@@ -199,7 +199,7 @@ application:
                       db-user: "{$.atg-db-publishing-user}"
                       db-user-password: "{$.atg-db-publishing-password}"
                       db-user-privileges: ["all"]
-                      db-user-mangement-action: ["create","grant"]
+                      db-user-management-action: ["create","grant"]
               - add-db-datafile:
                   action: serviceCall
                   precedingPhases: [get-env-props]

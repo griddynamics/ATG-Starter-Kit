@@ -3,7 +3,7 @@ kit:
   link: https://github.com/qubell-bazaar/ATG-Starter-Kit
   applications:
     - name: ATG-Starter-Kit
-      manifest: https://raw.github.com/qubell-bazaar/ATG-Starter-Kit/master/starter-java-web.yml
+      manifest: https://raw.github.com/qubell-bazaar/ATG-Starter-Kit/master/ATG-Starter-Kit.yml
     - name: "Database"
       manifest: https://raw.github.com/qubell-bazaar/component-oracle-db-xe/0.1.1/component-oracle-db-xe.yml
     - name: "Application Server"

@@ -30,4 +30,5 @@ bin/*
 .kitchen.local.yml
 
 berks/
+*.tar.gz
 *.yml.bak
